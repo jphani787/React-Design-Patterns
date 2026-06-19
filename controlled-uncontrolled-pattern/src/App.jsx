@@ -1,8 +1,13 @@
 import "./App.css";
+import Controlled from "./Controlled";
 //import UserProfileContainer from "./with-pattern/components/UserProfileContainer";
 
 function App() {
-  return <div>{/* <UserProfileContainer userId={1} /> */}</div>;
+  return (
+    <div>
+      <Controlled />
+    </div>
+  );
 }
 
 export default App;
