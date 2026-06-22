@@ -1,0 +1,79 @@
+import { createContext, useState, useContext } from "react";
+import { getProductById } from "../data/products";
+
+const CartContext = createContext(null);
+export default function CartProvider({ children }) {
+  const [cartItems, setCartItems] = useState([]);
+
+  function addToCart(productId) {
+    const product = cartItems.find((p) => p.id === productId);
+    if (product) {
+      const updatedCartItems = cartItems.map((item) =>
+        item.id === productId
+          ? { id: productId, quantity: product.quantity + 1 }
+          : item,
+      );
+      setCartItems(updatedCartItems);
+    } else {
+      setCartItems([...cartItems, { id: productId, quantity: 1 }]);
+    }
+  }
+
+  function removeQuantity(productId) {
+    setCartItems(cartItems.filter((item) => item.id !== productId));
+  }
+
+  function updateQuantity(productId, quantity) {
+    if (quantity <= 0) {
+      removeQuantity(quantity);
+    }
+    setCartItems(
+      cartItems.map((item) =>
+        item.id === productId ? { ...item, quantity } : item,
+      ),
+    );
+  }
+
+  function getCartItemsProduct() {
+    return cartItems
+      .map((item) => ({
+        ...item,
+        product: getProductById(item.id),
+      }))
+      .filter((item) => item.product);
+  }
+
+  function getCartTotal() {
+    const total = cartItems.reduce((total, item) => {
+      const product = getProductById(item.id);
+      return total + (product ? product.price * item.quantity : 0);
+    }, 0);
+
+    return total;
+  }
+
+  function clearCart() {
+    setCartItems([]);
+  }
+
+  return (
+    <CartContext.Provider
+      value={{
+        cartItems,
+        addToCart,
+        getCartItemsProduct,
+        removeQuantity,
+        updateQuantity,
+        getCartTotal,
+        clearCart,
+      }}
+    >
+      {children}
+    </CartContext.Provider>
+  );
+}
+
+export function useCart() {
+  const context = useContext(CartContext);
+  return context;
+}
