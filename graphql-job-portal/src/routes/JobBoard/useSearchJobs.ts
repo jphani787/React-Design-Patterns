@@ -3,6 +3,7 @@ import { useSearchJobsQuery } from "./queries.generated";
 
 const useSearchJobs = () => {
   const [search, setSearch] = useState("");
+
   const { data, loading } = useSearchJobsQuery({
     variables: {
       input: {

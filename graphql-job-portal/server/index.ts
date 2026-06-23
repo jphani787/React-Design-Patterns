@@ -21,7 +21,10 @@ async function startServer() {
 
   app.use(
     "/",
-    cors<cors.CorsRequest>(),
+    cors<cors.CorsRequest>({
+      origin: "http://localhost:3000",
+      credentials: true,
+    }),
     express.json(),
     cookieParser(),
     expressMiddleware(server, {
