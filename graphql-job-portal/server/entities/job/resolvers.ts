@@ -12,6 +12,15 @@ const resolvers: Resolvers = {
       }
 
       return company;
+    },
+    isApplied: async (job, ares, context) => {
+      const isApplied = await context.prisma.job.count({
+        where: {
+          id: job.id,
+          applicants: { some: { id: context.auth.user?.id } }
+        }
+      });
+      return isApplied > 0;
     }
   },
   Query: {

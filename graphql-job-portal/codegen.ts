@@ -8,6 +8,9 @@ const config: CodegenConfig = {
       config: {
         contextType: "../context#Context",
         defaultMapper: "Partial<{T}>",
+        scalars: {
+          DateTime: "Date"
+        },
         mappers: {
           Job: "@prisma/client#Job",
           JobType: "@prisma/client#JobType"
