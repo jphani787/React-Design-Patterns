@@ -4,7 +4,9 @@ type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import { gql } from '@apollo/client';
 import * as Apollo from '@apollo/client';
+import type { JobType } from '../../types/graphql';
 const defaultOptions = {} as const;
+
 export type SearchJobsInput = {
   query: string;
 };
@@ -14,7 +16,7 @@ export type SearchJobsQueryVariables = Exact<{
 }>;
 
 
-export type SearchJobsQuery = { searchJobs: Array<{ id: string, title: string }> };
+export type SearchJobsQuery = { searchJobs: Array<{ id: string, title: string, location: string, type: JobType, remote: boolean, salary: number, createdAt: Date, isApplied: boolean, company: { id: string, name: string } }> };
 
 
 export const SearchJobsDocument = gql`
@@ -22,6 +24,16 @@ export const SearchJobsDocument = gql`
   searchJobs(input: $input) {
     id
     title
+    location
+    type
+    remote
+    salary
+    company {
+      id
+      name
+    }
+    createdAt
+    isApplied
   }
 }
     `;

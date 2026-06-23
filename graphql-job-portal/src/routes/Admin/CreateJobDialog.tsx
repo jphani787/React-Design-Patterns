@@ -10,7 +10,7 @@ import { Select } from "../../components/ui/select";
 import { Switch, SwitchField } from "../../components/ui/switch";
 import { Button } from "../../components/ui/button";
 import { useForm } from "react-hook-form";
-import { JobType } from "../../components/JobCard";
+import { JobType } from "../../types/graphql";
 
 interface JobFormData {
   title: string;
@@ -90,9 +90,9 @@ const CreateJobDialog = (props: ICreateJobDialogProps) => {
             <Field>
               <Label>Job Type</Label>
               <Select {...register("type")}>
-                {Object.values(JobType).map((type) => (
-                  <option key={type} value={type}>
-                    {type}
+                {Object.entries(JobType).map(([key, value]) => (
+                  <option key={key} value={value}>
+                    {value}
                   </option>
                 ))}
               </Select>

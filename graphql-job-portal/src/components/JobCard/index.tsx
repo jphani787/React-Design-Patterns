@@ -5,12 +5,7 @@ import { Avatar } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Heading } from "../ui/heading";
 import { Text } from "../ui/text";
-
-export enum JobType {
-  FULL_TIME = "FULL_TIME",
-  INTERNSHIP = "INTERNSHIP",
-  PART_TIME = "PART_TIME",
-}
+import { JobType } from "../../types/graphql";
 
 export interface IJob {
   id: string;
@@ -31,6 +26,9 @@ const jobTypeMap = {
   [JobType.FULL_TIME]: "Full-Time",
   [JobType.PART_TIME]: "Part-Time",
   [JobType.INTERNSHIP]: "Internship",
+  [JobType.CONTRACT]: "Contract",
+  [JobType.TEMPORARY]: "Temporary",
+  [JobType.VOLUNTEER]: "Volunteer",
 };
 
 const JobCard = (props: IJobCardProps) => {

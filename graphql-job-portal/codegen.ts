@@ -10,37 +10,36 @@ const config: CodegenConfig = {
         contextType: "../context#Context",
         defaultMapper: "Partial<{T}>",
         scalars: {
-          DateTime: "Date"
+          DateTime: "Date",
         },
         mappers: {
           Job: "@prisma/client#Job",
-          JobType: "@prisma/client#JobType"
-        }
+        },
       },
     },
     "src/types/graphql.ts": {
       plugins: ["typescript"],
       config: {
         namingConvention: {
-          enumValues: "change-case#upperCase"
-        }
-      }
+          enumValues: "change-case#upperCase",
+        },
+      },
     },
     "src/": {
       preset: "near-operation-file",
       presetConfig: {
         extension: ".generated.tsx",
-        baseTypePath: "types/graphql.ts"
+        baseTypePath: "types/graphql.ts",
       },
       plugins: ["typescript-operations", "typescript-react-apollo"],
       config: {
         withHooks: true,
         scalars: {
-          DateTime: "Date"
+          DateTime: "Date",
         },
-      }
-
-    }
+        useTypeImports: true,
+      },
+    },
   },
 };
 

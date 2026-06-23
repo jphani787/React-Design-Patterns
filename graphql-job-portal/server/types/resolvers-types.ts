@@ -1,10 +1,9 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
-import { Job, JobType } from '@prisma/client';
+import { Job } from '@prisma/client';
 import { Context } from '../context';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
-export type EnumResolverSignature<T, AllowedValues = any> = { [key in keyof T]?: AllowedValues };
 export type RequireFields<T, K extends keyof T> = Omit<T, K> & { [P in K]-?: NonNullable<T[P]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -234,7 +233,7 @@ export type ResolversTypes = {
   ID: ResolverTypeWrapper<Partial<Scalars['ID']['output']>>;
   Int: ResolverTypeWrapper<Partial<Scalars['Int']['output']>>;
   Job: ResolverTypeWrapper<Job>;
-  JobType: ResolverTypeWrapper<JobType>;
+  JobType: ResolverTypeWrapper<Partial<JobType>>;
   LoginInput: ResolverTypeWrapper<Partial<LoginInput>>;
   Mutation: ResolverTypeWrapper<Record<PropertyKey, never>>;
   Query: ResolverTypeWrapper<Record<PropertyKey, never>>;
@@ -289,8 +288,6 @@ export type JobResolvers<ContextType = Context, ParentType extends ResolversPare
   updatedAt?: Resolver<ResolversTypes['DateTime'], ParentType, ContextType>;
 };
 
-export type JobTypeResolvers = EnumResolverSignature<{ CONTRACT?: any, FULL_TIME?: any, INTERNSHIP?: any, PART_TIME?: any, TEMPORARY?: any, VOLUNTEER?: any }, ResolversTypes['JobType']>;
-
 export type MutationResolvers<ContextType = Context, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   applyToJob?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationApplyToJobArgs, 'input'>>;
   cancelApplication?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType, RequireFields<MutationCancelApplicationArgs, 'input'>>;
@@ -319,7 +316,6 @@ export type Resolvers<ContextType = Context> = {
   Company?: CompanyResolvers<ContextType>;
   DateTime?: GraphQLScalarType;
   Job?: JobResolvers<ContextType>;
-  JobType?: JobTypeResolvers;
   Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;
