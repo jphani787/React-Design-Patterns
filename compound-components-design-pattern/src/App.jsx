@@ -5,6 +5,7 @@ import "./App.css";
 // import AccordionDemo from "./with-pattren/Accordion/AccordionDemo";
 
 import Card from "./with-pattren/Card/Card";
+import TabsDemo from "./with-pattren/Tabs/TabsDemo";
 
 function App() {
   const [isOpen, setIsOpen] = useState(false);
@@ -17,6 +18,7 @@ function App() {
         </Card.Header>
         <Card.Body>
           <p>Image card</p>
+          <TabsDemo />
         </Card.Body>
         <Card.Footer>
           <button>Help!</button>
