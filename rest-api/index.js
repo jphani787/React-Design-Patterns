@@ -31,7 +31,7 @@ const todoData = [
 ];
 
 router.get("/todo", (req, res) => {
-  res.json(todoData);
+  res.status(200).json(todoData);
 });
 
 router.post("/todo", (req, res) => {
@@ -50,12 +50,12 @@ router.put("/todo/:id", (req, res) => {
   const { title, completed } = req.body;
   const todo = todoData.find((todo) => todo.id === parseInt(id));
   if (!todo) {
-    return res.status(404).json({ message: "Todo not found" });
+    return res.status(400).json({ message: "Todo not found" });
   }
 
   todo.title = title;
   todo.completed = completed;
-  res.status(201).json(todoData);
+  res.status(202).json(todoData);
 });
 
 router.delete("/todo/:id", (req, res) => {
